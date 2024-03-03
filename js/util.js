@@ -1,11 +1,10 @@
-
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };
-// eslint-disable-next-line no-unused-vars
+
 const createRandomIdFromRangeGenerator = (min, max) => {
   const previousValues = [];
 
@@ -21,5 +20,6 @@ const createRandomIdFromRangeGenerator = (min, max) => {
     return currentValue;
   };
 };
-import './data.js';
-import './util.js';
+
+export {getRandomInteger};
+export {createRandomIdFromRangeGenerator};
