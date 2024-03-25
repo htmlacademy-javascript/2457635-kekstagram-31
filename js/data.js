@@ -48,7 +48,6 @@ const createComments = () => ({
   name: getRandomArrayElement(NAMES)
 });
 
-
 const createPhotoDescription = () => ({
   id: getPhotoID(),
   url: `photos/${ getNumberPhoto() }.jpg`,
