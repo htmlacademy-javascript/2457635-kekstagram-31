@@ -1,8 +1,6 @@
 
 import {arrayPhotos} from './data.js';
-// eslint-disable-next-line no-unused-vars
-import {openBigPicture} from './big-picture.js';
-
+import {openBigPicture} from './b'
 const thumbnailsList = document.querySelector('.pictures');
 const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -24,6 +22,5 @@ const renderThumbnails = () => thumbnailsList.append(thumbnailsFragment); {
   });
 
 }
-
 
 export {renderThumbnails};
