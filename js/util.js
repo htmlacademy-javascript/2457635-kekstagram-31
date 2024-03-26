@@ -27,9 +27,7 @@ const isEscapeKey = (evt) => {
   return evt.key === 'Escape';
 };
 // eslint-disable-next-line arrow-body-style
-const isEnterKey = (evt) => {
-  return evt.key === 'Enter';
-};
+
 
 export {getRandomInteger};
-export {createRandomIdFromRangeGenerator, isEscapeKey, isEnterKey};
+export {createRandomIdFromRangeGenerator, isEscapeKey};

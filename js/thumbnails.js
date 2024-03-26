@@ -1,6 +1,8 @@
 
 import {arrayPhotos} from './data.js';
-import {openBigPicture} from './b'
+// eslint-disable-next-line no-unused-vars
+import {openBigPicture} from './big-picture.js';
+
 const thumbnailsList = document.querySelector('.pictures');
 const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
