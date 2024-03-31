@@ -1,81 +1,63 @@
-import { isEscapeKey } from './utils.js';
+import {isEscapeKey} from './util.js';
 
-// eslint-disable-next-line no-unused-vars
-const MIN_SHOW_COMMENTS_COUNT = 5;
-
-// eslint-disable-next-line no-unused-vars
-const body = document.querySelector('body');
-// eslint-disable-next-line no-unused-vars, no-use-before-define
-const bigPictureCancel = bigPicture.querySelector('.big-picture__cancel');
 const bigPicture = document.querySelector('.big-picture');
+const userModalClosePicture = bigPicture.querySelector('.big-picture__cancel');
+const body = document.querySelector('body');
+const commentTemplate = bigPicture.querySelector('.social__comment');
+const commentSection = bigPicture.querySelector('.social__comments');
+const commentsShowCount = bigPicture.querySelector('.social__comment-shown-count');
+const commentsTotalCount = bigPicture.querySelector('.social__comment-total-count');
+const commentsLoad = bigPicture.querySelector('.comments-loader');
 
-// eslint-disable-next-line no-unused-vars
+
 const onEscKeydown = (evt) => {
   // eslint-disable-next-line no-undef
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeBigPicture();
+    bigPicture.classList.add('hidden');
   }
 };
 
-//Временное скрытие элементов в попапе
-// eslint-disable-next-line no-unused-vars
-const tempCommentsCountAndLoadDisable = () => {
-  // eslint-disable-next-line indent
-  bigPicture.querySelector('.social__comment-count').classList.add('hidden');
-  // eslint-disable-next-line indent
-  bigPicture.querySelector('.comments-loader').classList.add('hidden');
-  // eslint-disable-next-line indent
-  };
-tempCommentsCountAndLoadDisable();
-
-// eslint-disable-next-line no-unused-vars
-function closeBigPicture() { // картинка закрывается
+const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
-  // eslint-disable-next-line quotes
-  body.classList.remove("modal-open"); // удаляем класс
-  document.removeEventListener('keydown', onEscKeydown);
-  bigPictureCancel.removeEventListener('click', closeBigPicture);
+};
+userModalClosePicture.addEventListener('click', () => {
+  closeBigPicture();
+})
 
-}
+const renderPictureComments = (comments) => {
+  comments.forEach(({ avatar, message }) => {
+    const comment = commentTemplate.cloneNode(true);
+    comment.querySelector('.social__picture').src = avatar;
+    comment.querySelector('.social__text').textContent = message;
+    commentsShowCount.textContent = comments.length;
+    commentsTotalCount.textContent = comments.length;
+    commentSection.appendChild(comment);
+  });
+};
 
-// eslint-disable-next-line no-unused-vars
-function openBigPicture() { // картинка открывается
-  bigPicture.classList.remove('hidden');// удаляем класс
-  body.classList.add('modal-open'); // добавляем класс
-  document.addEventListener('keydown', onEscKeydown);
-  // eslint-disable-next-line no-use-before-define
-  bigPictureCancel.addEventListener('click', closeBigPicture);
-}
 
-// заполнение данными фото
-// eslint-disable-next-line no-unused-vars
-const renderPictureInformation = ({ url, description, likes, comments }) => {
-  bigPicture.querySelector('.big-picture__img').querySelector('img').src = url; // адрес изображения
-  bigPicture.querySelector('.big-picture__img').querySelector('img').alt = // альтернативный текст
-    description;
-  bigPicture.querySelector('.likes-count').textContent = likes; // кол-во лайков
-  //bigPicture.querySelector('.social__caption').textContent = description; // описание фотографии
+const renderBigPicture = ({url, description, likes, comments}) => {
+  bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
+  bigPicture.querySelector('.big-picture__img').querySelector('img').alt = description;
+  bigPicture.querySelector('.likes-count').textContent = likes;
+  bigPicture.querySelector('.likes-count').textContent = description;
   bigPicture.querySelector('.social__caption').textContent = description;
-
+  renderPictureComments(comments);
 };
-// eslint-disable-next-line no-unused-vars
-const onMiniatureClick = (thumbnail) => {
-  renderPictureInformation(thumbnail);
-  openBigPicture();
+const showBigPicture = ({url, description, likes, comments}) => {
+  bigPicture.classList.remove('hidden');
+  body.classList.add('modal-open');
+  document.addEventListener('keydown', onEscKeydown);
+  commentSection.innerHTML = '';
+  renderBigPicture({url, description, likes, comments});
+  commentsShowCount.classList.add('hidden');
+  commentsTotalCount.classList.add('hidden');
+  commentsLoad.classList.add('hidden');
+  userModalClosePicture.addEventListener('click', () => {
+    closeBigPicture();
+  });
 };
 
-// eslint-disable-next-line no-undef
-const miniaturesList = getRandomInteger();
-// eslint-disable-next-line no-undef
-renderThumbnails (miniaturesList, thumbnailsList);
 
-// eslint-disable-next-line no-undef
-thumbnailsLis.addEventListener('click', (evt) => {
-  if (evt.target.closest('.picture')) {
-    const miniature = miniaturesList.find((elem) => elem.id === Number(evt.target.id));
-    onMiniatureClick(miniature);
-  }
-});
-
-export {onMiniatureClick};
+export { showBigPicture, closeBigPicture };
