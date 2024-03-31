@@ -23,9 +23,7 @@ const createRandomIdFromRangeGenerator = (min, max) => {
 };
 
 // eslint-disable-next-line no-unused-vars, arrow-body-style
-const isEscapeKey = (evt) => {
-  return evt.key === 'Escape';
-};
+const isEscapeKey = (evt) => evt.key === 'Escape';
 // eslint-disable-next-line arrow-body-style
 
 
