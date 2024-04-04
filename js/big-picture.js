@@ -9,6 +9,8 @@ const commentsShowCount = bigPicture.querySelector('.social__comment-shown-count
 const commentsTotalCount = bigPicture.querySelector('.social__comment-total-count');
 const commentsLoad = bigPicture.querySelector('.comments-loader');
 
+const MIN_SHOWN_COMMENTS = 5;
+
 
 const onEscKeydown = (evt) => {
   // eslint-disable-next-line no-undef
@@ -23,7 +25,7 @@ const closeBigPicture = () => {
 };
 userModalClosePicture.addEventListener('click', () => {
   closeBigPicture();
-})
+});
 
 const renderPictureComments = (comments) => {
   comments.forEach(({ avatar, message }) => {
@@ -35,7 +37,6 @@ const renderPictureComments = (comments) => {
     commentSection.appendChild(comment);
   });
 };
-
 
 const renderBigPicture = ({url, description, likes, comments}) => {
   bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
@@ -58,6 +59,5 @@ const showBigPicture = ({url, description, likes, comments}) => {
     closeBigPicture();
   });
 };
-
 
 export { showBigPicture, closeBigPicture };

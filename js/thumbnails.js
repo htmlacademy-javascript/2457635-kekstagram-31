@@ -16,9 +16,8 @@ const renderThumbnails = () => thumbnailsList.append(thumbnailsFragment); {
     thumbnailsImage.alt = description;
     thumbnail.querySelector('.picture__likes').textContent = likes;
     thumbnail.querySelector('.picture__comments').textContent = comments.length;
-    // eslint-disable-next-line no-undef
 
-    thumbnail.addEventListener('click', () => {
+    thumbnailsList.addEventListener('click', () => {
       showBigPicture({url, description, likes, comments});
     });
 
