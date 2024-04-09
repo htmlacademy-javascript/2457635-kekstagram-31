@@ -1,7 +1,5 @@
 const thumbnailsList = document.querySelector('.pictures');
 const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
-
 const thumbnailsFragment = document.createDocumentFragment();
 
 function renderThumbnails (arrayPhotos) {
