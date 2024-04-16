@@ -12,7 +12,6 @@ const DESCRIPTIONS = [
   'Драка с Рудольфом'
 ];
 
-
 const COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -21,7 +20,6 @@ const COMMENTS = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
-
 
 const NAMES = [
   'Барсик',
@@ -34,7 +32,6 @@ const NAMES = [
 ];
 
 const OBJECT_COUNT = 25;
-
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 const getPhotoID = createRandomIdFromRangeGenerator(1, 25);
@@ -59,6 +56,5 @@ const createPhotoDescription = () => ({
 const arrayPhotos = Array.from({length: OBJECT_COUNT}, createPhotoDescription);
 
 // eslint-disable-next-line no-console
-
 
 export {arrayPhotos};
