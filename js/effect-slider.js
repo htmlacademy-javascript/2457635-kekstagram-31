@@ -11,14 +11,8 @@ noUiSlider.create(slider, {
   connect: 'lower',
   range: {
     min: 0,
-    max: 1,
-  },
-  format: {
-    to: (value) => Number.isInteger(value)
-      ? value.toFixed(0)
-      : value.toFixed(1),
-    from: (value) => parseFloat(value),
-  },
+    max: 1
+  }
   });
 
   slider.noUiSlider.on('update', () => {
@@ -40,15 +34,29 @@ noUiSlider.create(slider, {
         img.style.filter = 'none';
         break;
 
-      case 'chrome':
-        slider.noUiSlider.updateOptions({
-          range: {
-            'min': 0,
-            'max': 1,
-          },
-          start: 0,
-          step: 0.1,
-        });
+        case 'chrome':
+          slider.noUiSlider.updateOptions({
+            range: {
+              min: 0,
+              max: 1,
+            },
+            start: 0,
+            step: 0.1,
+          });
+          slider.noUiSlider.on('update', () => {
+            img.style.filter = `grayscale(${effectLevelValue.value})`;
+          });
+          break;
+
+          case 'sepia':
+            slider.noUiSlider.updateOptions({
+              range: {
+                min: 0,
+                max: 1,
+              },
+              start: 0,
+              step: 0.1,
+            });
         slider.noUiSlider.on('update', () => {
           img.style.filter = `sepia(${effectLevelValue.value})`;
         });
@@ -64,7 +72,7 @@ noUiSlider.create(slider, {
             step: 1,
           });
           slider.noUiSlider.on('update', () => {
-            img.style.filter = `invert(${effectLevelValue.value})`;
+            img.style.filter = `invert(${effectLevelValue.value}%)`;
           });
           break;
 
@@ -81,7 +89,7 @@ noUiSlider.create(slider, {
             img.style.filter = `blur(${effectLevelValue.value}px)`;
           });
           break;
-          
+
         case 'heat':
           slider.noUiSlider.updateOptions({
             range: {
