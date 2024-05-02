@@ -12,14 +12,8 @@ noUiSlider.create(slider, {
   range: {
     min: 0,
     max: 1,
-  },
-  format: {
-    to: (value) => Number.isInteger(value)
-      ? value.toFixed(0)
-      : value.toFixed(1),
-    from: (value) => parseFloat(value),
-  },
-  });
+  }
+});
 
   slider.noUiSlider.on('update', () => {
     effectLevelValue.value = slider.noUiSlider.get();
@@ -39,16 +33,29 @@ noUiSlider.create(slider, {
       case 'none':
         img.style.filter = 'none';
         break;
-
       case 'chrome':
         slider.noUiSlider.updateOptions({
           range: {
-            'min': 0,
-            'max': 1,
+            min: 0,
+            max: 1,
           },
           start: 0,
           step: 0.1,
         });
+        slider.noUiSlider.on('update', () => {
+          img.style.filter = `grayscale(${effectLevelValue.value})`;
+        });
+        break;
+
+        case 'sepia':
+          slider.noUiSlider.updateOptions({
+            range: {
+              min: 0,
+              max: 1,
+            },
+            start: 0,
+            step: 0.1,
+          });
         slider.noUiSlider.on('update', () => {
           img.style.filter = `sepia(${effectLevelValue.value})`;
         });
@@ -57,22 +64,22 @@ noUiSlider.create(slider, {
         case 'marvin':
           slider.noUiSlider.updateOptions({
             range: {
-              'min': 0,
-              'max': 100,
+              min: 0,
+              max: 100,
             },
             start: 0,
             step: 1,
           });
           slider.noUiSlider.on('update', () => {
-            img.style.filter = `invert(${effectLevelValue.value})`;
+            img.style.filter = `invert(${effectLevelValue.value}%)`;
           });
           break;
 
         case 'phobos':
           slider.noUiSlider.updateOptions({
             range: {
-              'min': 0,
-              'max': 3,
+              min: 0,
+              max: 3,
             },
             start: 0,
             step: 0.1,
@@ -81,12 +88,12 @@ noUiSlider.create(slider, {
             img.style.filter = `blur(${effectLevelValue.value}px)`;
           });
           break;
-          
+
         case 'heat':
           slider.noUiSlider.updateOptions({
             range: {
-              'min': 1,
-              'max': 3,
+              min: 1,
+              max: 3,
             },
             start: 1,
             step: 0.1,
