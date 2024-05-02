@@ -33,19 +33,20 @@ noUiSlider.create(slider, {
       case 'none':
         img.style.filter = 'none';
         break;
-      case 'chrome':
-        slider.noUiSlider.updateOptions({
-          range: {
-            min: 0,
-            max: 1,
-          },
-          start: 0,
-          step: 0.1,
-        });
-        slider.noUiSlider.on('update', () => {
-          img.style.filter = `grayscale(${effectLevelValue.value})`;
-        });
-        break;
+
+        case 'chrome':
+          slider.noUiSlider.updateOptions({
+            range: {
+              min: 0,
+              max: 1,
+            },
+            start: 0,
+            step: 0.1,
+          });
+          slider.noUiSlider.on('update', () => {
+            img.style.filter = `grayscale(${effectLevelValue.value})`;
+          });
+          break;
 
         case 'sepia':
           slider.noUiSlider.updateOptions({
