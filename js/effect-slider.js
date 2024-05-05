@@ -4,105 +4,123 @@ const imgUploadWrapper = document.querySelector('.img-upload__wrapper');
 const slider = imgUploadWrapper.querySelector('.effect-level__slider');
 const effectLevel = imgUploadWrapper.querySelector('.img-upload__effect-level');
 const effectLevelValue = imgUploadWrapper.querySelector('.effect-level__value');
-const img = imgUploadWrapper.querySelector('.img-upload__preview');
+const imgPreview = imgUploadWrapper.querySelector('.img-upload__preview');
+
+const EFFECTS = [
+  {
+    name: 'none',
+    style: '',
+    min: 0,
+    max: 1,
+    start: 100,
+    step: 1,
+    unit: ''
+  },
+  {
+    name: 'chrome',
+    style: 'grayscale',
+    min: 0,
+    max: 1,
+    start: 100,
+    step: 0.1,
+    unit: ''
+  },
+  {
+    name: 'sepia',
+    style: 'sepia',
+    min: 0,
+    max: 1,
+    start: 100,
+    step: 0.1,
+    unit: ''
+  },
+  {
+    name: 'marvin',
+    style: 'invert',
+    min: 0,
+    max: 100,
+    start: 100,
+    step: 1,
+    unit: '%'
+  },
+  {
+    name: 'phobos',
+    style: 'blur',
+    min: 0,
+    max: 3,
+    start: 100,
+    step: 0.1,
+    unit: 'px'
+  },
+  {
+    name: 'heat',
+    style: 'brightness',
+    min: 1,
+    max: 3,
+    start: 100,
+    step: 0.1,
+    unit: ''
+  },
+];
+
+let currentEffect = EFFECTS[0];
 
 noUiSlider.create(slider, {
-  start: 0,
+  start: currentEffect.max,
   connect: 'lower',
   range: {
-    min: 0,
-    max: 1
-  }
-  });
+    min: currentEffect.min,
+    max: currentEffect.max,
+  },
+});
 
-  slider.noUiSlider.on('update', () => {
-    effectLevelValue.value = slider.noUiSlider.get();
-  });
+slider.noUiSlider.on('update', () => {
+  effectLevelValue.value = slider.noUiSlider.get();
+});
 
+const hideEffectSlider = () => {
   effectLevel.classList.add('hidden');
+};
 
-  const onEffectChange = (evt) => {
-    const effect = evt.target.value;
+const showEffectSlider = () => {
+  effectLevel.classList.remove('hidden');
+};
 
-    if(effect === 'none') {
-      effectLevel.classList.add('hidden');
-    } else {
-      effectLevel.classList.remove('hidden');
-    }
-    switch (effect) {
-      case 'none':
-        img.style.filter = 'none';
-        break;
+const updateEffectSlider = () => {
+  slider.noUiSlider.updateOptions({
+    range: {
+      min: currentEffect.min,
+      max: currentEffect.max,
+    },
+    start: currentEffect.start,
+    step: currentEffect.step,
+  });
+  slider.noUiSlider.on('update', () => {
+    imgPreview.style.filter = `${currentEffect.style}(${effectLevelValue.value}${currentEffect.unit})`;
+  });
+};
 
-        case 'chrome':
-          slider.noUiSlider.updateOptions({
-            range: {
-              min: 0,
-              max: 1,
-            },
-            start: 0,
-            step: 0.1,
-          });
-          slider.noUiSlider.on('update', () => {
-            img.style.filter = `grayscale(${effectLevelValue.value})`;
-          });
-          break;
+const onEffectListChange = (evt) => {
+  const effect = evt.target.value;
 
-          case 'sepia':
-            slider.noUiSlider.updateOptions({
-              range: {
-                min: 0,
-                max: 1,
-              },
-              start: 0,
-              step: 0.1,
-            });
-        slider.noUiSlider.on('update', () => {
-          img.style.filter = `sepia(${effectLevelValue.value})`;
-        });
-        break;
+  if (effect === 'none') {
+    hideEffectSlider();
+    resetEffectSlider();
+  } else {
+    showEffectSlider();
+  }
 
-        case 'marvin':
-          slider.noUiSlider.updateOptions({
-            range: {
-              'min': 0,
-              'max': 100,
-            },
-            start: 0,
-            step: 1,
-          });
-          slider.noUiSlider.on('update', () => {
-            img.style.filter = `invert(${effectLevelValue.value}%)`;
-          });
-          break;
+  currentEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
+  imgPreview.className = `img-upload__preview effects__preview--${currentEffect.name}`;
+  updateEffectSlider();
+};
 
-        case 'phobos':
-          slider.noUiSlider.updateOptions({
-            range: {
-              'min': 0,
-              'max': 3,
-            },
-            start: 0,
-            step: 0.1,
-          });
-          slider.noUiSlider.on('update', () => {
-            img.style.filter = `blur(${effectLevelValue.value}px)`;
-          });
-          break;
+const resetEffectSlider = () => {
+  imgPreview.className = 'img-upload__preview';
+  imgPreview.style = 'none';
+  effectLevelValue.value = 0;
+};
 
-        case 'heat':
-          slider.noUiSlider.updateOptions({
-            range: {
-              'min': 1,
-              'max': 3,
-            },
-            start: 1,
-            step: 0.1,
-          });
-          slider.noUiSlider.on('update', () => {
-            img.style.filter = `brightness(${effectLevelValue.value})`;
-          });
-    }
-  };
+hideEffectSlider();
 
-  effectList.addEventListener('change', onEffectChange);
+effectList.addEventListener('change', onEffectListChange);
