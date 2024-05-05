@@ -69,15 +69,9 @@ noUiSlider.create(slider, {
   start: currentEffect.max,
   connect: 'lower',
   range: {
-<<<<<<< HEAD
     min: currentEffect.min,
     max: currentEffect.max,
   },
-=======
-    min: 0,
-    max: 1,
-  }
->>>>>>> 5838d3d115d2780100ac15154912f323e614f769
 });
 
 slider.noUiSlider.on('update', () => {
@@ -109,7 +103,6 @@ const updateEffectSlider = () => {
 const onEffectListChange = (evt) => {
   const effect = evt.target.value;
 
-<<<<<<< HEAD
   if (effect === 'none') {
     hideEffectSlider();
     resetEffectSlider();
@@ -129,63 +122,5 @@ const resetEffectSlider = () => {
 };
 
 hideEffectSlider();
-=======
-        case 'sepia':
-          slider.noUiSlider.updateOptions({
-            range: {
-              min: 0,
-              max: 1,
-            },
-            start: 0,
-            step: 0.1,
-          });
-        slider.noUiSlider.on('update', () => {
-          img.style.filter = `sepia(${effectLevelValue.value})`;
-        });
-        break;
-
-        case 'marvin':
-          slider.noUiSlider.updateOptions({
-            range: {
-              min: 0,
-              max: 100,
-            },
-            start: 0,
-            step: 1,
-          });
-          slider.noUiSlider.on('update', () => {
-            img.style.filter = `invert(${effectLevelValue.value}%)`;
-          });
-          break;
-
-        case 'phobos':
-          slider.noUiSlider.updateOptions({
-            range: {
-              min: 0,
-              max: 3,
-            },
-            start: 0,
-            step: 0.1,
-          });
-          slider.noUiSlider.on('update', () => {
-            img.style.filter = `blur(${effectLevelValue.value}px)`;
-          });
-          break;
-
-        case 'heat':
-          slider.noUiSlider.updateOptions({
-            range: {
-              min: 1,
-              max: 3,
-            },
-            start: 1,
-            step: 0.1,
-          });
-          slider.noUiSlider.on('update', () => {
-            img.style.filter = `brightness(${effectLevelValue.value})`;
-          });
-    }
-  };
->>>>>>> 5838d3d115d2780100ac15154912f323e614f769
 
 effectList.addEventListener('change', onEffectListChange);
