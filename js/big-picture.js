@@ -1,17 +1,19 @@
-// eslint-disable-next-line quotes
-import { isEscapeKey } from "./util.js";
-// eslint-disable-next-line quotes
-import { arrayPhotos } from "./data.js";
+import { isEscapeKey } from './util.js';
+import { arrayPhotos } from './data.js';
 
 const thumbnailsList = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
 const userModalClosePicture = bigPicture.querySelector('.big-picture__cancel');
 const body = document.querySelector('body');
-const commentTemplate = bigPicture.querySelector('.social__comment'); // комментарии к изображению
+const commentTemplate = bigPicture.querySelector('.social__comment');
 const commentSection = bigPicture.querySelector('.social__comments');
-const commentsShowCount = bigPicture.querySelector('.social__comment-shown-count');
-const commentsTotalCount = bigPicture.querySelector('.social__comment-total-count');
-const showMoreBtn = bigPicture.querySelector('.comments-loader'); //Загрузить еще
+const commentsShowCount = bigPicture.querySelector(
+  '.social__comment-shown-count'
+);
+const commentsTotalCount = bigPicture.querySelector(
+  '.social__comment-total-count'
+);
+const showMoreBtn = bigPicture.querySelector('.comments-loader');
 
 let loadingStep = 1;
 let temporaryComments = null;
@@ -28,13 +30,11 @@ const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
 
   document.removeEventListener('keydown', onEscKeydown);
-  // eslint-disable-next-line no-use-before-define
   showMoreBtn.removeEventListener('click', onShowMoreBtnClick);
   userModalClosePicture.removeEventListener('click', closeBigPicture);
 };
 
 const renderPictureComments = (initialComments, comments) => {
-  // eslint-disable-next-line no-use-before-define
   clearCommentsList();
 
   initialComments.forEach(({ avatar, message }) => {
@@ -54,7 +54,6 @@ const onShowMoreBtnClick = () => {
   renderPictureComments(commentsToShow, temporaryComments);
 };
 
-// eslint-disable-next-line no-unused-vars
 const renderBigPicture = ({ url, description, likes, comments }) => {
   bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
   bigPicture.querySelector('.big-picture__img').querySelector('img').alt =
@@ -85,6 +84,10 @@ const showBigPicture = ({ url, description, likes, comments }) => {
 };
 
 thumbnailsList.addEventListener('click', (evt) => {
+  if (!evt.target.closest('.picture')) {
+    return;
+  }
+
   const clickedId = evt.target.closest('.picture').dataset.id;
   const thumbnailsData = arrayPhotos.find(
     (item) => item.id === Number(clickedId)
