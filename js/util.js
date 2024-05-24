@@ -21,11 +21,50 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-// eslint-disable-next-line no-unused-vars, arrow-body-style
 const isEscapeKey = (evt) => {
-// eslint-disable-next-line indent
 return evt.key === 'Escape';
 };
-// eslint-disable-next-line arrow-body-style
 
-export {getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey};
+// const showAlert = (errorText) => {
+//   const alertTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
+//   const alertElement = alertTemplate.cloneNode(true);
+//   alertElement.textContent = errorText;
+//   document.body.append(alertElement);
+
+//   setTimeout(() => {
+//     alertElement.remove();
+//   }, 5000);
+// };
+
+// const onSuccessButtonClick = () => {
+//   document.body.removeChild(successElement);
+// };
+
+// const closeSuccess = () => {
+//   document.body.removeChild(successElement);
+//   document.removeEventListener('click', onSuccessDocumentClick);
+//   document.removeEventListener('keydown', onSuccessEscKeydown);
+// };
+
+// function onSuccessDocumentClick (evt) {
+//   if (evt.target === successElement) {
+//     closeSuccess();
+//   }
+// };
+
+// const showSuccess = (successText) => {
+//   const successTemplate = document.querySelector('#success').content.querySelector('.success');
+//   successElement = successTemplate.cloneNode(true);
+//   const successTitleElement = successElement.querySelector('.success__title');
+//   const successButtonElement = successElement.querySelector('.success__button');
+
+//   successTitleElement.textContent = successText;
+
+//   successButtonElement.addEventListener('click', onSuccessButtonClick);
+//   document.addEventListener('click', onSuccessDocumentClick);
+//   document.addEventListener('keydown', onSuccessEscKeydown);
+//   document.body.append(successElement);
+// };
+
+export { getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey };
+// export { showAlert, showSuccess };

@@ -1,5 +1,7 @@
 
 import { isEscapeKey } from "./util.js";
+// import { showAlert, showSuccess } from "./util.js";
+// import { sendData } from './api.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const pageBody = document.querySelector('body');
@@ -10,6 +12,12 @@ const photoEditorResetBtn = photoEditorForm.querySelector('#upload-cancel');
 
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
+// const submitElement = formElement.querySelector('#upload-submit');
+
+// const SubmitButtonText = {
+//   IDLE: 'Опубликовать',
+//   SENDING: 'Отправляю...'
+// };
 
 const onPhotoEditorResetBtnClick = () => {
   closePhotoEditor();
@@ -59,7 +67,7 @@ const onFormSubmit = (evt) => {
 pristine.addValidator(hashtagInput, (value) => {
   const hasNumber = /\d/.test(value);
   return !hasNumber;
-}, 'Ошибка здесь');
+}, 'Ошибка закралась');
 
 pristine.addValidator(commentInput, (value) => {
   const comment = value.length <= 140;
