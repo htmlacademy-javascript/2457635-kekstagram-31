@@ -91,7 +91,7 @@ thumbnailsList.addEventListener('click', (evt) => {
   const clickedId = evt.target.closest('.picture').dataset.id;
   const thumbnailsData = arrayPhotos.find(
     (item) => item.id === Number(clickedId)
-  );
+  )
 
   showBigPicture(thumbnailsData);
 });

@@ -21,50 +21,49 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-const isEscapeKey = (evt) => {
-return evt.key === 'Escape';
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+const showAlert = (errorText) => {
+  const alertTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
+  const alertElement = alertTemplate.cloneNode(true);
+  const alertElementTitle = alertElement.querySelector('.data-error__title');
+  alertElementTitle.textContent = errorText;
+  document.body.append(alertElement);
+
+  setTimeout(() => {
+    alertElement.remove();
+  }, 5000);
 };
 
-// const showAlert = (errorText) => {
-//   const alertTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
-//   const alertElement = alertTemplate.cloneNode(true);
-//   alertElement.textContent = errorText;
-//   document.body.append(alertElement);
+const onSuccessButtonClick = () => {
+  document.body.removeChild(successElement);
+};
 
-//   setTimeout(() => {
-//     alertElement.remove();
-//   }, 5000);
-// };
+const closeSuccess = () => {
+  document.body.removeChild(successElement);
+  document.removeEventListener('click', onSuccessDocumentClick);
+  document.removeEventListener('keydown', onSuccessEscKeydown);
+};
 
-// const onSuccessButtonClick = () => {
-//   document.body.removeChild(successElement);
-// };
+function onSuccessDocumentClick (evt) {
+  if (evt.target === successElement) {
+    closeSuccess();
+  }
+};
 
-// const closeSuccess = () => {
-//   document.body.removeChild(successElement);
-//   document.removeEventListener('click', onSuccessDocumentClick);
-//   document.removeEventListener('keydown', onSuccessEscKeydown);
-// };
+const showSuccess = (successText) => {
+  const successTemplate = document.querySelector('#success').content.querySelector('.success');
+  successElement = successTemplate.cloneNode(true);
+  const successTitleElement = successElement.querySelector('.success__title');
+  const successButtonElement = successElement.querySelector('.success__button');
 
-// function onSuccessDocumentClick (evt) {
-//   if (evt.target === successElement) {
-//     closeSuccess();
-//   }
-// };
+  successTitleElement.textContent = successText;
 
-// const showSuccess = (successText) => {
-//   const successTemplate = document.querySelector('#success').content.querySelector('.success');
-//   successElement = successTemplate.cloneNode(true);
-//   const successTitleElement = successElement.querySelector('.success__title');
-//   const successButtonElement = successElement.querySelector('.success__button');
+  successButtonElement.addEventListener('click', onSuccessButtonClick);
+  document.addEventListener('click', onSuccessDocumentClick);
+  document.addEventListener('keydown', onSuccessEscKeydown);
+  document.body.append(successElement);
+};
 
-//   successTitleElement.textContent = successText;
+export { getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey, showAlert, showSuccess };
 
-//   successButtonElement.addEventListener('click', onSuccessButtonClick);
-//   document.addEventListener('click', onSuccessDocumentClick);
-//   document.addEventListener('keydown', onSuccessEscKeydown);
-//   document.body.append(successElement);
-// };
-
-export { getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey };
-// export { showAlert, showSuccess };
