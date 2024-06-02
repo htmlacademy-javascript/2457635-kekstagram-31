@@ -1,5 +1,4 @@
 import { isEscapeKey } from './util.js';
-import { arrayPhotos } from './data.js';
 
 const thumbnailsList = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
@@ -83,15 +82,21 @@ const showBigPicture = ({ url, description, likes, comments }) => {
   userModalClosePicture.addEventListener('click', closeBigPicture);
 };
 
-thumbnailsList.addEventListener('click', (evt) => {
-  if (!evt.target.closest('.picture')) {
-    return;
-  }
 
-  const clickedId = evt.target.closest('.picture').dataset.id;
-  const thumbnailsData = arrayPhotos.find(
-    (item) => item.id === Number(clickedId)
-  )
+export function initBigPicture(data){
+  thumbnailsList.addEventListener('click', (evt) => {
+    if (!evt.target.closest('.picture')) {
+      return;
+    }
 
-  showBigPicture(thumbnailsData);
-});
+    const clickedId = evt.target.closest('.picture').dataset.id;
+    const thumbnailsData = data.find(
+      (item) => item.id === Number(clickedId)
+    )
+
+    showBigPicture(thumbnailsData);
+  });
+}
+
+
+

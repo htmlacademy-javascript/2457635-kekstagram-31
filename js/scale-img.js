@@ -7,7 +7,6 @@ const scaleControl = uploadForm.querySelector('.scale__control--value');
 
 const SCALE_STEP = 0.25;
 
-
 let scale = 1;
 
 const onSmallerClick = () => {

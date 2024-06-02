@@ -23,6 +23,7 @@ const createRandomIdFromRangeGenerator = (min, max) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
+
 const showAlert = (errorText) => {
   const alertTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
   const alertElement = alertTemplate.cloneNode(true);
@@ -35,35 +36,47 @@ const showAlert = (errorText) => {
   }, 5000);
 };
 
-const onSuccessButtonClick = () => {
-  document.body.removeChild(successElement);
+let element = null;
+
+const onButtonClick = () => {
+  document.body.removeChild(element);
 };
 
-const closeSuccess = () => {
-  document.body.removeChild(successElement);
-  document.removeEventListener('click', onSuccessDocumentClick);
-  document.removeEventListener('keydown', onSuccessEscKeydown);
+const closeModal = () => {
+  document.body.removeChild(element);
+  document.removeEventListener('click', onDocumentClick);
+  document.removeEventListener('keydown', onEscKeydown);
 };
 
-function onSuccessDocumentClick (evt) {
-  if (evt.target === successElement) {
-    closeSuccess();
+
+const onEscKeydown = (e) => {
+  if(isEscapeKey(e)){
+    e.preventDefault();
+    closeModal();
   }
+}
+
+function onDocumentClick (evt) {
+  if (evt.target === element) {
+    closeModal();
+};
+}
+
+const showModal = (text,cls) => {
+  const template = document.querySelector(`#${cls}`).content.querySelector(`.${cls}`);
+  element = template.cloneNode(true);
+
+  const titleElement = element.querySelector(`.${cls}__title`);
+  const buttonElement = element.querySelector(`.${cls}__button`);
+
+  titleElement.textContent = text;
+
+  buttonElement.addEventListener('click', onButtonClick);
+  document.addEventListener('click', onDocumentClick);
+  document.addEventListener('keydown', onEscKeydown);
+  document.body.append(element);
+
 };
 
-const showSuccess = (successText) => {
-  const successTemplate = document.querySelector('#success').content.querySelector('.success');
-  successElement = successTemplate.cloneNode(true);
-  const successTitleElement = successElement.querySelector('.success__title');
-  const successButtonElement = successElement.querySelector('.success__button');
-
-  successTitleElement.textContent = successText;
-
-  successButtonElement.addEventListener('click', onSuccessButtonClick);
-  document.addEventListener('click', onSuccessDocumentClick);
-  document.addEventListener('keydown', onSuccessEscKeydown);
-  document.body.append(successElement);
-};
-
-export { getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey, showAlert, showSuccess };
+export { getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey, showAlert, showModal };
 
