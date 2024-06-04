@@ -78,5 +78,5 @@ const showModal = (text,cls) => {
 
 };
 
-export { getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey, showAlert, showModal };
+export { getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey, showAlert, showModal};
 

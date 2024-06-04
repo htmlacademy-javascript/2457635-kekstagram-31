@@ -1,10 +1,15 @@
 import { resetImageSizeToDefault } from "./scale-img.js";
-// import { resetFilterToDefault } from "./effect-slider.js";
+import { resetFilterToDefault } from "./effect-slider.js";
 import { isEscapeKey } from "./util.js";
 import { showModal } from "./util.js";
 import { sendData } from './api.js';
 
+const FILE_TYPES = ['jpg','jpeg','png','gif','jfif'];
+
 const uploadForm = document.querySelector('.img-upload__form');
+const uploadFileInputElement = document.querySelector('.img-upload__input');
+const uploadPreview = document.querySelector('.img-upload__preview');
+const uploadPreviewEffect = document.querySelector('.effect__ preview');
 const pageBody = document.querySelector('body');
 
 const uploadFileControl = uploadForm.querySelector('#upload-file');
@@ -23,6 +28,7 @@ const HASHTAG_VALIDATION_ERROR_MESSAGES = {
   HASHTAG_NOT_UNIQUE: 'Хэштэг должен быть уникальным!',
   HASHTAG_COUNT_INVALID: `Хэштэгов может быть только ${HASHTAGS_COUNT_MAX}!`,
 };
+
 const checkIndividualHashtag = (hashtagsList) => hashtagsList.every((hashtag) => hashtagRegexp.test(hashtag));
 
 const checkUniqueHashtag = (hashtagsList) => hashtagsList.every((value, index, array) => array.lastIndexOf(value) === index);
@@ -49,6 +55,13 @@ const getHashtagValidationErrorMessage = () => {
   }
 };
 
+// hashtagInput.addEventListener('keydow', (evt) => {
+//   if (evt.key ==='Escape '){
+//   evt.stopPropagtion();
+//   }
+//   });
+
+
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--error',
@@ -58,16 +71,16 @@ const pristine = new Pristine(uploadForm, {
 
 pristine.addValidator(hashtagInput, validateHashtags, getHashtagValidationErrorMessage);
 
+
 pristine.addValidator(commentInput, (value) => {
   const comment = value.length <= 140;
   return comment;
 }, 'Много букв, остановись');
 
-
 const clearForm = () => {
   uploadForm.reset();
   resetImageSizeToDefault();
-  // resetFilterToDefault();
+  resetFilterToDefault();
 };
 
 const closePhotoEditor = () => {
@@ -76,28 +89,20 @@ const closePhotoEditor = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
   photoEditorResetBtn.removeEventListener('click', onPhotoEditorResetBtnClick);
   uploadFileControl.value = '';
-  clearForm();
+  // clearForm();
 };
 
 function onPhotoEditorResetBtnClick () {
   closePhotoEditor();
+
 };
-
-// const onEscKeydown = (evt) => {
-//   if (document.activeElement === hashtagInput || document.activeElement === hashtagInput) {
-//     evt.stopPropagation();
-//   } else if (isEscapeKey(evt)) {
-//     evt.preventDefault();
-//     closePhotoEditor();
-//   }
-// };
-
 
 function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     uploadForm.reset();
     closePhotoEditor();
+    // clearForm();
   }
 };
 
@@ -139,7 +144,7 @@ const uloadForm = async () => {
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-    // const isValid = pristine.validate();
+    const isValid = pristine.validate();
 
     if(!pristine.validate()) {
       return;
@@ -148,5 +153,7 @@ const onFormSubmit = (evt) => {
   };
 
 uploadForm.addEventListener('submit', onFormSubmit);
+
+
 
 export { initUploadModal, clearForm};

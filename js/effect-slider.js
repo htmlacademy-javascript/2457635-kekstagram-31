@@ -1,3 +1,4 @@
+
 const uploadForm = document.querySelector('.img-upload__form');
 
 const effectList = uploadForm.querySelector('.effects__list');
@@ -122,7 +123,7 @@ const resetEffectSlider = () => {
   effectLevelValue.value = 0;
 };
 
-// const resetFilterToDefault = () => {
+// export const resetFilterToDefault = () => {
 //   const resetEffect = document.querySelector('#effect-none').checked = true;
 // };
 
