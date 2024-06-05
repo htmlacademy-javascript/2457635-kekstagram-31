@@ -117,15 +117,15 @@ const onEffectListChange = (evt) => {
   updateEffectSlider();
 };
 
-const resetEffectSlider = () => {
+export const resetEffectSlider = () => {
   imgPreview.className = 'img-upload__preview';
   imgPreview.style = 'none';
-  effectLevelValue.value = 0;
+  hideEffectSlider ();
 };
 
-// export const resetFilterToDefault = () => {
-//   const resetEffect = document.querySelector('#effect-none').checked = true;
-// };
+export const resetFilterToDefault = () => {
+  document.querySelector('#effect-none').checked = true;
+};
 
 hideEffectSlider();
 

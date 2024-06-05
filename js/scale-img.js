@@ -28,7 +28,7 @@ const onBiggerClick = () => {
 
 export const resetImageSizeToDefault = () => {
   imgPreview.style.transform = 'scale(1)';
-  scaleControl.value = 1;
+  scaleControl.value = `${100}%`;
 };
 
 bigger.addEventListener('click', onBiggerClick);

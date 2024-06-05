@@ -94,6 +94,10 @@ export function initBigPicture(data){
       (item) => item.id === Number(clickedId)
     )
 
+    // function clearBigPhoto() {
+    //   thumbnailsList.querySelectorAll('.a.picture').forEach((item) => item.remove());
+    // }
+
     showBigPicture(thumbnailsData);
   });
 }

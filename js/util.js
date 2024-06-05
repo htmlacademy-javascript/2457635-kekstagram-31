@@ -23,7 +23,6 @@ const createRandomIdFromRangeGenerator = (min, max) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-
 const showAlert = (errorText) => {
   const alertTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
   const alertElement = alertTemplate.cloneNode(true);
@@ -54,7 +53,7 @@ const onEscKeydown = (e) => {
     e.preventDefault();
     closeModal();
   }
-}
+};
 
 function onDocumentClick (evt) {
   if (evt.target === element) {
@@ -78,5 +77,13 @@ const showModal = (text,cls) => {
 
 };
 
-export { getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey, showAlert, showModal};
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export { getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey, showAlert, showModal, debounce};
 

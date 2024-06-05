@@ -1,5 +1,5 @@
 import { resetImageSizeToDefault } from "./scale-img.js";
-import { resetFilterToDefault } from "./effect-slider.js";
+import { resetFilterToDefault, resetEffectSlider } from "./effect-slider.js";
 import { isEscapeKey } from "./util.js";
 import { showModal } from "./util.js";
 import { sendData } from './api.js';
@@ -55,12 +55,27 @@ const getHashtagValidationErrorMessage = () => {
   }
 };
 
-// hashtagInput.addEventListener('keydow', (evt) => {
-//   if (evt.key ==='Escape '){
-//   evt.stopPropagtion();
-//   }
-//   });
+function onHashtagInputFocus () {
+  document.removeEventListener('keydown', onDocumentKeydown);
+}
 
+function onHashtagInputBlur () {
+  document.addEventListener('keydown', onDocumentKeydown);
+}
+
+hashtagInput.addEventListener('focus', onHashtagInputFocus)
+hashtagInput.addEventListener('blur', onHashtagInputBlur)
+
+function onCommentInputFocus () {
+  document.removeEventListener('keydown', onDocumentKeydown);
+}
+
+function onCommentInputBlur () {
+  document.addEventListener('keydown', onDocumentKeydown);
+}
+
+commentInput.addEventListener('focus', onCommentInputFocus)
+commentInput.addEventListener('blur', onCommentInputBlur)
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -71,7 +86,6 @@ const pristine = new Pristine(uploadForm, {
 
 pristine.addValidator(hashtagInput, validateHashtags, getHashtagValidationErrorMessage);
 
-
 pristine.addValidator(commentInput, (value) => {
   const comment = value.length <= 140;
   return comment;
@@ -81,6 +95,7 @@ const clearForm = () => {
   uploadForm.reset();
   resetImageSizeToDefault();
   resetFilterToDefault();
+  resetEffectSlider();
 };
 
 const closePhotoEditor = () => {
@@ -89,7 +104,7 @@ const closePhotoEditor = () => {
   document.removeEventListener('keydown', onDocumentKeydown);
   photoEditorResetBtn.removeEventListener('click', onPhotoEditorResetBtnClick);
   uploadFileControl.value = '';
-  // clearForm();
+  clearForm();
 };
 
 function onPhotoEditorResetBtnClick () {
@@ -102,7 +117,7 @@ function onDocumentKeydown (evt) {
     evt.preventDefault();
     uploadForm.reset();
     closePhotoEditor();
-    // clearForm();
+
   }
 };
 
@@ -120,22 +135,22 @@ const SubmitButtonText = {
   SENDING: 'Отправляю...'
 };
 
-  const blockSubmitButton = () => {
-    submitElement.disabled = true;
-    submitElement.textContent = SubmitButtonText.SENDING;
-  };
+const blockSubmitButton = () => {
+  submitElement.disabled = true;
+  submitElement.textContent = SubmitButtonText.SENDING;
+};
 
-  const unblockSubmitButton = () => {
-    submitElement.disabled = false;
-    submitElement.textContent = SubmitButtonText.IDLE;
-  };
+const unblockSubmitButton = () => {
+  submitElement.disabled = false;
+  submitElement.textContent = SubmitButtonText.IDLE;
+};
 
 const uloadForm = async () => {
   try{
-  blockSubmitButton();
-  await sendData(new FormData(uploadForm));
-  unblockSubmitButton();
-  showModal('Ура, фото загружено!', 'success');
+    blockSubmitButton();
+    await sendData(new FormData(uploadForm));
+    unblockSubmitButton();
+    showModal('Ура, фото загружено!', 'success');
   } catch {
     showModal('Ошибка загрузки', 'error');
     unblockSubmitButton();
@@ -144,16 +159,30 @@ const uloadForm = async () => {
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-    const isValid = pristine.validate();
 
-    if(!pristine.validate()) {
-      return;
-    }
+  if(!pristine.validate()) {
+    return;
+  }
     uloadForm();
   };
 
 uploadForm.addEventListener('submit', onFormSubmit);
 
+function onFileInputChange () { // ?
+  const file = uploadFileInputElement.files[0];
+  const fileName = file.name.toLowerCase();
+  const fileExt = fileName.split('.').pop();
+  const matches = FILE_TYPES.includes(fileExt);
+  if(matches) {
+    const url = URL.createObjectURL(file);
+    uploadPreview.src = url;
+    uploadPreviewEffect.forEach((item) => {
+    item.style.backgroundImage = 'url(${url})';
+  });
+  }else {
+    return;
+  }
+}
+  initUploadModal(); // ?
 
-
-export { initUploadModal, clearForm};
+export { initUploadModal, clearForm };
