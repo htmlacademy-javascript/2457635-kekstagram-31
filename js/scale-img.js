@@ -7,7 +7,6 @@ const scaleControl = uploadForm.querySelector('.scale__control--value');
 
 const SCALE_STEP = 0.25;
 
-
 let scale = 1;
 
 const onSmallerClick = () => {
@@ -25,6 +24,11 @@ const onBiggerClick = () => {
     scaleControl.value = `${scale * 100}%`;
 
   }
+};
+
+export const resetImageSizeToDefault = () => {
+  imgPreview.style.transform = 'scale(1)';
+  scaleControl.value = `${100}%`;
 };
 
 bigger.addEventListener('click', onBiggerClick);

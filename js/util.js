@@ -21,11 +21,69 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   };
 };
 
-// eslint-disable-next-line no-unused-vars, arrow-body-style
-const isEscapeKey = (evt) => {
-// eslint-disable-next-line indent
-return evt.key === 'Escape';
-};
-// eslint-disable-next-line arrow-body-style
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey};
+const showAlert = (errorText) => {
+  const alertTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
+  const alertElement = alertTemplate.cloneNode(true);
+  const alertElementTitle = alertElement.querySelector('.data-error__title');
+  alertElementTitle.textContent = errorText;
+  document.body.append(alertElement);
+
+  setTimeout(() => {
+    alertElement.remove();
+  }, 5000);
+};
+
+let element = null;
+
+const onButtonClick = () => {
+  document.body.removeChild(element);
+};
+
+const closeModal = () => {
+  document.body.removeChild(element);
+  document.removeEventListener('click', onDocumentClick);
+  document.removeEventListener('keydown', onEscKeydown);
+};
+
+
+const onEscKeydown = (e) => {
+  if(isEscapeKey(e)){
+    e.preventDefault();
+    closeModal();
+  }
+};
+
+function onDocumentClick (evt) {
+  if (evt.target === element) {
+    closeModal();
+};
+}
+
+const showModal = (text,cls) => {
+  const template = document.querySelector(`#${cls}`).content.querySelector(`.${cls}`);
+  element = template.cloneNode(true);
+
+  const titleElement = element.querySelector(`.${cls}__title`);
+  const buttonElement = element.querySelector(`.${cls}__button`);
+
+  titleElement.textContent = text;
+
+  buttonElement.addEventListener('click', onButtonClick);
+  document.addEventListener('click', onDocumentClick);
+  document.addEventListener('keydown', onEscKeydown);
+  document.body.append(element);
+
+};
+
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export { getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey, showAlert, showModal, debounce};
+

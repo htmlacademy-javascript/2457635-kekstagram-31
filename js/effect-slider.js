@@ -1,4 +1,6 @@
+
 const uploadForm = document.querySelector('.img-upload__form');
+
 const effectList = uploadForm.querySelector('.effects__list');
 const imgUploadWrapper = document.querySelector('.img-upload__wrapper');
 const slider = imgUploadWrapper.querySelector('.effect-level__slider');
@@ -115,10 +117,14 @@ const onEffectListChange = (evt) => {
   updateEffectSlider();
 };
 
-const resetEffectSlider = () => {
+export const resetEffectSlider = () => {
   imgPreview.className = 'img-upload__preview';
   imgPreview.style = 'none';
-  effectLevelValue.value = 0;
+  hideEffectSlider ();
+};
+
+export const resetFilterToDefault = () => {
+  document.querySelector('#effect-none').checked = true;
 };
 
 hideEffectSlider();
