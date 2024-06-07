@@ -11,7 +11,7 @@ const FILTER = {
 
 const SORTFUNC= {
   random: () => 0.5 - Math.random(),
-  discussed: (a,b) => b.comments.length - a.comments.length
+  discussed: (a,b) => b.comments.length - a.comments.length,
 };
 
 let currentFilter = FILTER.default;
@@ -63,6 +63,8 @@ function configFilter(picturesData) {
   filterElement.addEventListener('click', onFilterChange);
 
   pictures = picturesData;
+
+  renderThumbnails(arrayPhotos);
 };
 
 export { configFilter };

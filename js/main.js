@@ -15,7 +15,7 @@ try {
   renderThumbnails(data);
   initBigPicture(data);
   initUploadModal();
-  configFilter()
+  configFilter();
 } catch {
   showAlert ('Не удалось загрузить данные');
 };

@@ -168,21 +168,21 @@ const onFormSubmit = (evt) => {
 
 uploadForm.addEventListener('submit', onFormSubmit);
 
-function onFileInputChange () { // ?
-  const file = uploadFileInputElement.files[0];
-  const fileName = file.name.toLowerCase();
-  const fileExt = fileName.split('.').pop();
-  const matches = FILE_TYPES.includes(fileExt);
-  if(matches) {
-    const url = URL.createObjectURL(file);
-    uploadPreview.src = url;
-    uploadPreviewEffect.forEach((item) => {
-    item.style.backgroundImage = 'url(${url})';
-  });
-  }else {
-    return;
-  }
-}
-  initUploadModal(); // ?
+// function onFileInputChange () { // ?
+//   const file = uploadFileInputElement.files[0];
+//   const fileName = file.name.toLowerCase();
+//   const fileExt = fileName.split('.').pop();
+//   const matches = FILE_TYPES.includes(fileExt);
+//   if(matches) {
+//     const url = URL.createObjectURL(file);
+//     uploadPreview.src = url;
+//     uploadPreviewEffect.forEach((item) => {
+//     item.style.backgroundImage = 'url(${url})';
+//   });
+//   }else {
+//     return;
+//   }
+// }
+//   initUploadModal(); // ?
 
 export { initUploadModal, clearForm };
