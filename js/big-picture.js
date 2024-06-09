@@ -93,11 +93,6 @@ export function initBigPicture(data){
     const thumbnailsData = data.find(
       (item) => item.id === Number(clickedId)
     )
-
-    // function clearBigPhoto() {
-    //   thumbnailsList.querySelectorAll('.a.picture').forEach((item) => item.remove());
-    // }
-
     showBigPicture(thumbnailsData);
   });
 }

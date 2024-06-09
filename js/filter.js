@@ -1,70 +1,55 @@
-import {renderThumbnails} from  './thumbnails.js';
-import {debounce} from  './util.js';
+import { renderPicturesWithDebounce } from  './thumbnails.js';
+import { data } from './main.js';
 
-const MAX_PICTURE_COUNT = 10;
+const filterDefaultButton = document.querySelector('#filter-default');
+const filterRandomButton = document.querySelector('#filter-random');
+const filterDiscussedButton = document.querySelector('#filter-discussed');
+const imageFilter = document.querySelector('.img-filters');
+const imageFilterButton = imageFilter.querySelector('.img-filters__form');
 
-const FILTER = {
-  default: 'filter-default',
-  random: 'filter-random',
-  discussed: 'filter-discussed',
+// Случайные карточки
+const getRandomPhotos = (data) => {
+  for (let i = 0 ; (i < 10) && (i < data.length) ; i++) {
+    const r = Math.floor(Math.random() * (data.length - i)) + i;
+    const photo = data[r];
+    data[r] = data[i];
+    data[i] = photo;
+  }
+  return data.slice(0, 10);
 };
 
-const SORTFUNC= {
-  random: () => 0.5 - Math.random(),
-  discussed: (a,b) => b.comments.length - a.comments.length,
+// Обсуждаемые карточки
+const getDiscussedPhotosFirst = (data) => {
+  const sortData = data.sort((a, b) => b.comments.length - a.comments.length);
+  return sortData;
 };
 
-let currentFilter = FILTER.default;
-let pictures = [];
-
-const filterElement = document.querySelector('.img-filters');
-const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
-
-const debounceRender = debounce(renderThumbnails);
-
-function onFilterChange(evt) {
-
-  const targetButton = evt.target;
-  const activeButton = document.querySelector(`.${ACTIVE_BUTTON_CLASS }`);
-
-  if (!targetButton.matches('button')) {
-    return;
-}
-
-    activeButton.classList.toggle(ACTIVE_BUTTON_CLASS);
-    targetButton.classList.toggle(ACTIVE_BUTTON_CLASS);
-    currentFilter = targetButton.getAttribute('id');
-
-  applyFilter();
-};
-
-function applyFilter () {
-
-  let filteredPictures = [];
-
-  if (currentFilter === FILTER. default) {
-    filteredPictures = pictures;
+const getFilterData = (id)=> {
+  const idToFilter = {
+    'filter-default': data,
+    'filter-random': getRandomPhotos([...data]),
+    'filter-discussed': getDiscussedPhotosFirst ([...data])
   };
-
-  if (currentFilter === FILTER.random) {
-    filteredPictures = pictures.toSorted(SORTFUNC.random).slice(0, MAX_PICTURE_COUNT);
-  };
-
-  if (currentFilter === FILTER.discussed) {
-    filteredPictures = pictures.toSorted(SORTFUNC.discussed);
-  };
-
-debounceRender(filteredPictures);
+  return idToFilter[id];
 };
 
-function configFilter(picturesData) {
-
-  filterElement.classList.remove('img-filters--inactive');
-  filterElement.addEventListener('click', onFilterChange);
-
-  pictures = picturesData;
-
-  renderThumbnails(arrayPhotos);
+const setActiveFilterButton = (evt) => {
+  imageFilterButton.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
+  evt.target.classList.add('img-filters__button--active');
 };
 
-export { configFilter };
+const onFilterClick = (evt) => {
+  const pictures = getFilterData (evt.target.id);
+  setActiveFilterButton(evt);
+  renderPicturesWithDebounce(pictures);
+};
+
+const initializeFilters = () => {
+  imageFilter.classList.remove('img-filters--inactive');
+
+  filterDefaultButton.addEventListener('click', onFilterClick);
+  filterRandomButton.addEventListener('click', onFilterClick);
+  filterDiscussedButton.addEventListener('click', onFilterClick);
+};
+
+export {initializeFilters};

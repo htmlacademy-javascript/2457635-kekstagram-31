@@ -4,12 +4,12 @@ import { isEscapeKey } from "./util.js";
 import { showModal } from "./util.js";
 import { sendData } from './api.js';
 
-const FILE_TYPES = ['jpg','jpeg','png','gif','jfif'];
+// const FILE_TYPES = ['jpg','jpeg','png','gif','jfif'];
 
 const uploadForm = document.querySelector('.img-upload__form');
-const uploadFileInputElement = document.querySelector('.img-upload__input');
-const uploadPreview = document.querySelector('.img-upload__preview');
-const uploadPreviewEffect = document.querySelector('.effect__ preview');
+// const uploadFileInputElement = document.querySelector('.img-upload__input');
+// const uploadPreview = document.querySelector('.img-upload__preview');
+// const uploadPreviewEffect = document.querySelector('.effect__ preview');
 const pageBody = document.querySelector('body');
 
 const uploadFileControl = uploadForm.querySelector('#upload-file');
@@ -183,6 +183,6 @@ uploadForm.addEventListener('submit', onFormSubmit);
 //     return;
 //   }
 // }
-//   initUploadModal(); // ?
+//
 
 export { initUploadModal, clearForm };

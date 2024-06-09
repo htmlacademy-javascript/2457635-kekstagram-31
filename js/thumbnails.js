@@ -1,5 +1,7 @@
+import { debounce } from './util.js';
+
 const thumbnailsList = document.querySelector('.pictures');
-const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const thumbnailTemplate = document.querySelector('#picture').content.querySelector('a');
 const thumbnailsFragment = document.createDocumentFragment();
 
 function renderThumbnails (arrayPhotos) {
@@ -16,8 +18,24 @@ function renderThumbnails (arrayPhotos) {
     thumbnailsFragment.append(thumbnail);
   });
   thumbnailsList.append(thumbnailsFragment);
-}
+};
 
-export {renderThumbnails};
+const resetPhotos = () => {
+  thumbnailsList.querySelectorAll('.picture').forEach((picture)=> {
+    picture.remove();
+  });
+};
+
+const renderPictures = (data) => {
+  resetPhotos();
+  data.forEach((cardObj) => {
+    fragment.appendChild(fillCardTemplate(cardObj));
+  });
+  document.appendChild(fragment);
+};
+
+const renderPicturesWithDebounce = debounce(renderPictures);
+
+export { renderThumbnails, renderPicturesWithDebounce };
 
 
