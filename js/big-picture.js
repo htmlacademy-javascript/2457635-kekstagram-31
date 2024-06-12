@@ -46,14 +46,14 @@ const renderPictureComments = (initialComments, comments) => {
   });
 };
 
-const onShowMoreBtnClick = () => {
+function onShowMoreBtnClick () {
   loadingStep += 1;
   const commentsToShowCount = COMMENTS_PER_PERTION * loadingStep;
   const commentsToShow = temporaryComments.slice(0, commentsToShowCount);
   renderPictureComments(commentsToShow, temporaryComments);
-};
+}
 
-const renderBigPicture = ({ url, description, likes, comments }) => {
+const renderBigPicture = ({ url, description, likes }) => {
   bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
   bigPicture.querySelector('.big-picture__img').querySelector('img').alt =
     description;
@@ -61,9 +61,9 @@ const renderBigPicture = ({ url, description, likes, comments }) => {
   bigPicture.querySelector('.social__caption').textContent = description;
 };
 
-const clearCommentsList = () => {
+function clearCommentsList () {
   commentSection.innerHTML = '';
-};
+}
 
 const showBigPicture = ({ url, description, likes, comments }) => {
   bigPicture.classList.remove('hidden');
@@ -92,15 +92,7 @@ export function initBigPicture(data){
     const clickedId = evt.target.closest('.picture').dataset.id;
     const thumbnailsData = data.find(
       (item) => item.id === Number(clickedId)
-    )
-
-    // function clearBigPhoto() {
-    //   thumbnailsList.querySelectorAll('.a.picture').forEach((item) => item.remove());
-    // }
-
+    );
     showBigPicture(thumbnailsData);
   });
 }
-
-
-

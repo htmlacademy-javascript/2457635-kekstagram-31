@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 
 const uploadForm = document.querySelector('.img-upload__form');
 
@@ -117,11 +118,11 @@ const onEffectListChange = (evt) => {
   updateEffectSlider();
 };
 
-export const resetEffectSlider = () => {
+export function resetEffectSlider () {
   imgPreview.className = 'img-upload__preview';
   imgPreview.style = 'none';
   hideEffectSlider ();
-};
+}
 
 export const resetFilterToDefault = () => {
   document.querySelector('#effect-none').checked = true;
