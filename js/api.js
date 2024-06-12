@@ -10,13 +10,13 @@ const Method = {
 };
 
 const ErrorText = {
-GET_DATA: 'Не удалось загрузить данные. Попробуйте обновить страницу',
-SEND_DATA: 'Не удалось отправить форму. Попробуйте еще раз',
+  GET_DATA: 'Не удалось загрузить данные. Попробуйте обновить страницу',
+  SEND_DATA: 'Не удалось отправить форму. Попробуйте еще раз',
 };
 
 const load = (route, errorText, method = Method.GET, body = null) =>
   fetch(`${BASE_URL}${route}`, {method, body})
-  .then((response) => {
+    .then((response) => {
       if (!response.ok) {
         throw new Error();
       }
@@ -26,8 +26,8 @@ const load = (route, errorText, method = Method.GET, body = null) =>
       throw new Error(errorText);
     });
 
-  const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA);
+const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA);
 
-  const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, Method.POST, body);
+const sendData = (body) => load(Route.SEND_DATA, ErrorText.SEND_DATA, Method.POST, body);
 
 export { getData, sendData };

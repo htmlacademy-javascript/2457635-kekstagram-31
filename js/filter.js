@@ -1,4 +1,4 @@
-import { renderPicturesWithDebounce } from  './thumbnails.js';
+import { renderPicturesWithDebounce } from './thumbnails.js';
 import { data } from './main.js';
 
 const filterDefaultButton = document.querySelector('#filter-default');

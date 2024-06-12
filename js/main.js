@@ -19,7 +19,7 @@ try {
   initUploadModal();
 } catch {
   showAlert ('Не удалось загрузить данные');
-};
+}
 
 export { data };
 

@@ -41,12 +41,11 @@ const onButtonClick = () => {
   document.body.removeChild(element);
 };
 
-const closeModal = () => {
-  document.body.removeChild(element);
-  document.removeEventListener('click', onDocumentClick);
-  document.removeEventListener('keydown', onEscKeydown);
-};
-
+function onDocumentClick (evt) {
+  if (evt.target === element) {
+    closeModal();
+  }
+}
 
 const onEscKeydown = (e) => {
   if(isEscapeKey(e)){
@@ -55,10 +54,10 @@ const onEscKeydown = (e) => {
   }
 };
 
-function onDocumentClick (evt) {
-  if (evt.target === element) {
-    closeModal();
-};
+function closeModal () {
+  document.body.removeChild(element);
+  document.removeEventListener('click', onDocumentClick);
+  document.removeEventListener('keydown', onEscKeydown);
 }
 
 const showModal = (text,cls) => {
