@@ -4,12 +4,12 @@ import { isEscapeKey } from "./util.js";
 import { showModal } from "./util.js";
 import { sendData } from './api.js';
 
-// const FILE_TYPES = ['jpg','jpeg','png','gif','jfif'];
+const FILE_TYPES = ['jpg','jpeg','png','gif','jfif'];
 
 const uploadForm = document.querySelector('.img-upload__form');
-// const uploadFileInputElement = document.querySelector('.img-upload__input');
-// const uploadPreview = document.querySelector('.img-upload__preview');
-// const uploadPreviewEffect = document.querySelector('.effect__ preview');
+const uploadFileInputElement = uploadForm.querySelector('.img-upload__input');
+const uploadPreview = document.querySelector('.img-upload__preview > img');
+const uploadPreviewEffects = document.querySelectorAll('.effects__ preview');
 const pageBody = document.querySelector('body');
 
 const uploadFileControl = uploadForm.querySelector('#upload-file');
@@ -168,21 +168,23 @@ const onFormSubmit = (evt) => {
 
 uploadForm.addEventListener('submit', onFormSubmit);
 
-// function onFileInputChange () { // ?
-//   const file = uploadFileInputElement.files[0];
-//   const fileName = file.name.toLowerCase();
-//   const fileExt = fileName.split('.').pop();
-//   const matches = FILE_TYPES.includes(fileExt);
-//   if(matches) {
-//     const url = URL.createObjectURL(file);
-//     uploadPreview.src = url;
-//     uploadPreviewEffect.forEach((item) => {
-//     item.style.backgroundImage = 'url(${url})';
-//   });
-//   }else {
-//     return;
-//   }
-// }
-//
+function onFileInputChange () {
+  const file = uploadFileInputElement.files[0];
+  const fileName = file.name.toLowerCase();
+  const fileExt = fileName.split('.').pop();
+  const matches = FILE_TYPES.includes(fileExt);
+  if(matches) {
+    const url = URL.createObjectURL(file);
+    uploadPreview.src = url;
+    uploadPreviewEffects.forEach((item) => {
+    item.style.backgroundImage = `url(${url})`;
+  });
+  }else {
+    return;
+  }
+}
+
+uploadFileInputElement.addEventListener('change', onFileInputChange)
+
 
 export { initUploadModal, clearForm };
