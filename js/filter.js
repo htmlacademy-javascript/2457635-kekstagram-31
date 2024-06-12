@@ -18,8 +18,8 @@ const getRandomPhotos = (datas) => {
   return datas.slice(0, 10);
 };
 
-const getDiscussedPhotosFirst = (dataset) => {
-  const sortData = dataset.sort((a, b) => b.comments.length - a.comments.length);
+const getDiscussedPhotosFirst = (photos) => {
+  const sortData = photos.sort((a, b) => b.comments.length - a.comments.length);
   return sortData;
 };
 
