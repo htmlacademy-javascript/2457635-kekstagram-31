@@ -8,18 +8,18 @@ const imageFilter = document.querySelector('.img-filters');
 const imageFilterButton = imageFilter.querySelector('.img-filters__form');
 
 
-const getRandomPhotos = (data) => {
+const getRandomPhotos = (datas) => {
   for (let i = 0 ; (i < 10) && (i < data.length) ; i++) {
-    const r = Math.floor(Math.random() * (data.length - i)) + i;
-    const photo = data[r];
-    data[r] = data[i];
-    data[i] = photo;
+    const r = Math.floor(Math.random() * (datas.length - i)) + i;
+    const photo = datas[r];
+    datas[r] = datas[i];
+    datas[i] = photo;
   }
-  return data.slice(0, 10);
+  return datas.slice(0, 10);
 };
 
-const getDiscussedPhotosFirst = (data) => {
-  const sortData = data.sort((a, b) => b.comments.length - a.comments.length);
+const getDiscussedPhotosFirst = (dataset) => {
+  const sortData = dataset.sort((a, b) => b.comments.length - a.comments.length);
   return sortData;
 };
 
