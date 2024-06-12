@@ -48,17 +48,17 @@ const closeModal = () => {
 };
 
 
-const onEscKeydown = (e) => {
+function onEscKeydown (e){
   if(isEscapeKey(e)){
     e.preventDefault();
     closeModal();
   }
-};
+}
 
 function onDocumentClick (evt) {
   if (evt.target === element) {
     closeModal();
-};
+  }
 }
 
 const showModal = (text,cls) => {

@@ -1,7 +1,7 @@
-import { resetImageSizeToDefault } from "./scale-img.js";
-import { resetFilterToDefault, resetEffectSlider } from "./effect-slider.js";
-import { isEscapeKey } from "./util.js";
-import { showModal } from "./util.js";
+import { resetImageSizeToDefault } from './scale-img.js';
+import { resetFilterToDefault, resetEffectSlider } from './effect-slider.js';
+import { isEscapeKey } from './util.js';
+import { showModal } from './util.js';
 import { sendData } from './api.js';
 
 // const FILE_TYPES = ['jpg','jpeg','png','gif','jfif'];
@@ -63,8 +63,8 @@ function onHashtagInputBlur () {
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-hashtagInput.addEventListener('focus', onHashtagInputFocus)
-hashtagInput.addEventListener('blur', onHashtagInputBlur)
+hashtagInput.addEventListener('focus', onHashtagInputFocus);
+hashtagInput.addEventListener('blur', onHashtagInputBlur);
 
 function onCommentInputFocus () {
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -74,8 +74,8 @@ function onCommentInputBlur () {
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-commentInput.addEventListener('focus', onCommentInputFocus)
-commentInput.addEventListener('blur', onCommentInputBlur)
+commentInput.addEventListener('focus', onCommentInputFocus);
+commentInput.addEventListener('blur', onCommentInputBlur);
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -110,7 +110,7 @@ const closePhotoEditor = () => {
 function onPhotoEditorResetBtnClick () {
   closePhotoEditor();
 
-};
+}
 
 function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
@@ -119,7 +119,7 @@ function onDocumentKeydown (evt) {
     closePhotoEditor();
 
   }
-};
+}
 
 const initUploadModal = () => {
   uploadFileControl.addEventListener('change', () => {
@@ -163,8 +163,8 @@ const onFormSubmit = (evt) => {
   if(!pristine.validate()) {
     return;
   }
-    uloadForm();
-  };
+  uloadForm();
+};
 
 uploadForm.addEventListener('submit', onFormSubmit);
 
