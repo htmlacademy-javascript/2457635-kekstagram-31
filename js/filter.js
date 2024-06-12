@@ -7,7 +7,7 @@ const filterDiscussedButton = document.querySelector('#filter-discussed');
 const imageFilter = document.querySelector('.img-filters');
 const imageFilterButton = imageFilter.querySelector('.img-filters__form');
 
-// Случайные карточки
+
 const getRandomPhotos = (data) => {
   for (let i = 0 ; (i < 10) && (i < data.length) ; i++) {
     const r = Math.floor(Math.random() * (data.length - i)) + i;
@@ -18,7 +18,6 @@ const getRandomPhotos = (data) => {
   return data.slice(0, 10);
 };
 
-// Обсуждаемые карточки
 const getDiscussedPhotosFirst = (data) => {
   const sortData = data.sort((a, b) => b.comments.length - a.comments.length);
   return sortData;

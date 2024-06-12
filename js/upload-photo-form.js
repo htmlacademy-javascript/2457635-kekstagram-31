@@ -21,7 +21,7 @@ const commentInput = uploadForm.querySelector('.text__description');
 const submitElement = uploadForm.querySelector('#upload-submit');
 
 const HASHTAGS_COUNT_MAX = 5;
-const hashtagRegexp = /^#[a-zа-яё0-9]{1,19}$/i;
+const hashtagRegexp = /^#[a-zа-яё0-9]{1,19}$/;
 
 const HASHTAG_VALIDATION_ERROR_MESSAGES = {
   HASHTAG_INVALID: 'Введен невалидный хештег',
@@ -168,6 +168,7 @@ const onFormSubmit = (evt) => {
 
 uploadForm.addEventListener('submit', onFormSubmit);
 
+
 function onFileInputChange () {
   const file = uploadFileInputElement.files[0];
   const fileName = file.name.toLowerCase();
@@ -182,9 +183,9 @@ function onFileInputChange () {
   }else {
     return;
   }
-}
+};
 
-uploadFileInputElement.addEventListener('change', onFileInputChange)
+uploadFileInputElement.addEventListener('change', onFileInputChange);
 
 
 export { initUploadModal, clearForm };
