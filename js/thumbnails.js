@@ -1,8 +1,18 @@
+import { debounce } from './util.js';
+
 const thumbnailsList = document.querySelector('.pictures');
-const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const thumbnailTemplate = document.querySelector('#picture').content.querySelector('a');
 const thumbnailsFragment = document.createDocumentFragment();
 
+const resetPhotos = () => {
+  thumbnailsList.querySelectorAll('.picture').forEach((picture)=> {
+    picture.remove();
+  });
+};
+
 function renderThumbnails (arrayPhotos) {
+  resetPhotos();
+
   arrayPhotos.forEach(({ id, url, description, likes, comments }) => {
     const thumbnail = thumbnailTemplate.cloneNode(true);
     const thumbnailsImage = thumbnail.querySelector('.picture__img');
@@ -10,7 +20,6 @@ function renderThumbnails (arrayPhotos) {
     thumbnail.dataset.id = id;
     thumbnailsImage.src = url;
     thumbnailsImage.alt = description;
-
     thumbnail.querySelector('.picture__likes').textContent = likes;
     thumbnail.querySelector('.picture__comments').textContent = comments.length;
     thumbnailsFragment.append(thumbnail);
@@ -18,6 +27,6 @@ function renderThumbnails (arrayPhotos) {
   thumbnailsList.append(thumbnailsFragment);
 }
 
-export {renderThumbnails};
+const renderPicturesWithDebounce = debounce(renderThumbnails);
 
-
+export { renderThumbnails, renderPicturesWithDebounce };

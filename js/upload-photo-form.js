@@ -1,15 +1,15 @@
-import { resetImageSizeToDefault } from "./scale-img.js";
-import { resetFilterToDefault, resetEffectSlider } from "./effect-slider.js";
-import { isEscapeKey } from "./util.js";
-import { showModal } from "./util.js";
+import { resetImageSizeToDefault } from './scale-img.js';
+import { resetFilterToDefault, resetEffectSlider } from './effect-slider.js';
+import { isEscapeKey } from './util.js';
+import { showModal } from './util.js';
 import { sendData } from './api.js';
 
-const FILE_TYPES = ['jpg','jpeg','png','gif','jfif'];
+// const FILE_TYPES = ['jpg','jpeg','png','gif','jfif'];
 
 const uploadForm = document.querySelector('.img-upload__form');
-const uploadFileInputElement = document.querySelector('.img-upload__input');
-const uploadPreview = document.querySelector('.img-upload__preview');
-const uploadPreviewEffect = document.querySelector('.effect__ preview');
+// const uploadFileInputElement = document.querySelector('.img-upload__input');
+// const uploadPreview = document.querySelector('.img-upload__preview');
+// const uploadPreviewEffect = document.querySelector('.effect__ preview');
 const pageBody = document.querySelector('body');
 
 const uploadFileControl = uploadForm.querySelector('#upload-file');
@@ -63,8 +63,8 @@ function onHashtagInputBlur () {
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-hashtagInput.addEventListener('focus', onHashtagInputFocus)
-hashtagInput.addEventListener('blur', onHashtagInputBlur)
+hashtagInput.addEventListener('focus', onHashtagInputFocus);
+hashtagInput.addEventListener('blur', onHashtagInputBlur);
 
 function onCommentInputFocus () {
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -74,8 +74,8 @@ function onCommentInputBlur () {
   document.addEventListener('keydown', onDocumentKeydown);
 }
 
-commentInput.addEventListener('focus', onCommentInputFocus)
-commentInput.addEventListener('blur', onCommentInputBlur)
+commentInput.addEventListener('focus', onCommentInputFocus);
+commentInput.addEventListener('blur', onCommentInputBlur);
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -110,7 +110,7 @@ const closePhotoEditor = () => {
 function onPhotoEditorResetBtnClick () {
   closePhotoEditor();
 
-};
+}
 
 function onDocumentKeydown (evt) {
   if (isEscapeKey(evt)) {
@@ -119,7 +119,7 @@ function onDocumentKeydown (evt) {
     closePhotoEditor();
 
   }
-};
+}
 
 const initUploadModal = () => {
   uploadFileControl.addEventListener('change', () => {
@@ -163,26 +163,26 @@ const onFormSubmit = (evt) => {
   if(!pristine.validate()) {
     return;
   }
-    uloadForm();
-  };
+  uloadForm();
+};
 
 uploadForm.addEventListener('submit', onFormSubmit);
 
-function onFileInputChange () { // ?
-  const file = uploadFileInputElement.files[0];
-  const fileName = file.name.toLowerCase();
-  const fileExt = fileName.split('.').pop();
-  const matches = FILE_TYPES.includes(fileExt);
-  if(matches) {
-    const url = URL.createObjectURL(file);
-    uploadPreview.src = url;
-    uploadPreviewEffect.forEach((item) => {
-    item.style.backgroundImage = 'url(${url})';
-  });
-  }else {
-    return;
-  }
-}
-  initUploadModal(); // ?
+// function onFileInputChange () { // ?
+//   const file = uploadFileInputElement.files[0];
+//   const fileName = file.name.toLowerCase();
+//   const fileExt = fileName.split('.').pop();
+//   const matches = FILE_TYPES.includes(fileExt);
+//   if(matches) {
+//     const url = URL.createObjectURL(file);
+//     uploadPreview.src = url;
+//     uploadPreviewEffect.forEach((item) => {
+//     item.style.backgroundImage = 'url(${url})';
+//   });
+//   }else {
+//     return;
+//   }
+// }
+//
 
 export { initUploadModal, clearForm };

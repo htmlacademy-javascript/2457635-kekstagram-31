@@ -48,17 +48,17 @@ const closeModal = () => {
 };
 
 
-const onEscKeydown = (e) => {
+function onEscKeydown (e){
   if(isEscapeKey(e)){
     e.preventDefault();
     closeModal();
   }
-};
+}
 
 function onDocumentClick (evt) {
   if (evt.target === element) {
     closeModal();
-};
+  }
 }
 
 const showModal = (text,cls) => {
@@ -77,13 +77,13 @@ const showModal = (text,cls) => {
 
 };
 
-function debounce (callback, timeoutDelay = 500) {
+export const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
-export { getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey, showAlert, showModal, debounce};
+export { getRandomInteger, createRandomIdFromRangeGenerator, isEscapeKey, showAlert, showModal };
 
